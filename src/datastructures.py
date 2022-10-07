@@ -21,14 +21,27 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
+        member["lastname"] = self.last_name
+        if "id" not in member : 
+            member["id"] = self._generateId()
+        self._members.append(member)
+        return member
         pass
 
     def delete_member(self, id):
         # fill this method and update the return
+        if any(d['id'] == id for d in self._members):
+            self._members = list(filter(lambda i: i["id"] != id,self._members))
+            return {"msg" : "member removed"}
+        return {"result" : "member not found"}
         pass
 
     def get_member(self, id):
         # fill this method and update the return
+        if any(d['id'] == id for d in self._members):
+            self._members = list(filter(lambda i: i["id"] != id,self._members))
+            return {"msg" : "member removed"}
+        return {"result" : "member not found"}
         pass
 
     # this method is done, it returns a list with all the family members
