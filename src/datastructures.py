@@ -8,40 +8,55 @@ update this file to implement the following already declared methods:
 """
 from random import randint
 
+
 class FamilyStructure:
     def __init__(self, last_name):
         self.last_name = last_name
+        self._members = [
+            {
+                "id": 1,
+                "first_name": "John",
+                "last_name": self.last_name,
+                "age": 33,
+                "lucky_numbers": [7, 13, 22]
+            },
+            {
+                "id": 2,
+                "first_name": "Jane",
+                "last_name": self.last_name,
+                "age": 35,
+                "lucky_numbers": [10, 14, 3]
+            },
+            {
+                "id": 3,
+                "first_name": "Jimmy",
+                "last_name": self.last_name,
+                "age": 5,
+                "lucky_numbers": [1]
+            }
+        ]
 
-        # example list of members
-        self._members = []
-
-    # read-only: Use this method to generate random members ID's when adding members into the list
+    
     def _generateId(self):
         return randint(0, 99999999)
 
     def add_member(self, member):
-        # fill this method and update the return
-        member["lastname"] = self.last_name
-        if "id" not in member : 
-            member["id"] = self._generateId()
+        
         self._members.append(member)
-        return member
+        return self._members
         pass
 
     def delete_member(self, id):
-        # fill this method and update the return
-        if any(d['id'] == id for d in self._members):
-            self._members = list(filter(lambda i: i["id"] != id,self._members))
-            return {"msg" : "member removed"}
-        return {"result" : "member not found"}
+       
+        self._members = list(filter(lambda item: id!=item["id"], self._members))
+        return None
         pass
 
     def get_member(self, id):
-        # fill this method and update the return
-        if any(d['id'] == id for d in self._members):
-            self._members = list(filter(lambda i: i["id"] != id,self._members))
-            return {"msg" : "member removed"}
-        return {"result" : "member not found"}
+      
+        for member in self._members:
+            if id==member["id"]:
+                return member
         pass
 
     # this method is done, it returns a list with all the family members
